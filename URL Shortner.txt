@@ -1,0 +1,71 @@
+Day 1
+Monday
+
+Build the Flask API
+Deliverable: working API
+- Create a new GitHub repository: url-shortener.
+- Set up a Python virtual environment and install Flask.
+- Implement POST /shorten to accept a URL and generate a short code.
+- Implement GET /<short_code> to redirect to the original URL.
+- Test both endpoints using curl.
+End-of-day result: Shortening and redirecting work locally. For now, store mappings in memory; PostgreSQL comes tomorrow.
+---------------------------------------------------------------------------------------
+Day 2
+Tuesday
+
+Add PostgreSQL and Docker Compose
+Deliverable: persistent storage
+- Add PostgreSQL and a database table for short codes and original URLs.
+- Update Flask to store and retrieve URLs from PostgreSQL.
+- Create a Dockerfile and compose.yaml.
+- Configure the application and database to communicate through the Compose network.
+- Verify that saved URLs still work after restarting the application.
+End-of-day result: Two containers run together, and database records persist using a volume.
+---------------------------------------------------------------------------------------------
+Day 3
+Wednesday
+
+Networking and troubleshooting
+Deliverable: reliable connectivity
+- Inspect running containers and port mappings.
+- Test the API with curl -i.
+- Check logs using docker compose logs.
+- Break the database hostname or port configuration deliberately.
+- Diagnose the connection error and fix it.
+End-of-day result: You can explain host ports, container ports, DNS/service names and why the application connects to the database using its Compose service name rather than localhost.
+---------------------------------------------------------------------------------------------
+Day 4
+Thursday
+
+Build the CI/CD workflow
+Deliverable: automated build
+- Add API tests for URL creation and redirection.
+- Create .github/workflows/ci.yml.
+- Run tests automatically on each push.
+- Build the Docker image only after tests pass.
+- Push a uniquely tagged image to Docker Hub using GitHub Actions secrets.
+End-of-day result: A successful commit produces a tested, versioned image. If time is limited, prioritize automated testing and image building, then finish publishing in the next session.
+----------------------------------------------------------------------------------------
+Day 5
+Friday
+
+Deploy to Kubernetes
+Deliverable: running deployment
+- Create Kubernetes Deployment and Service manifests.
+- Configure database credentials through a Kubernetes Secret.
+- Deploy the application and PostgreSQL, using persistent storage for database records.
+- Set the application image to the version published by CI.
+- Verify Pods, Services, logs and API responses.
+End-of-day result: The URL Shortener runs in Kubernetes and stores its mappings persistently. Use your existing local cluster to avoid cloud setup overhead.
+------------------------------------------------------------------------------------------
+Day 6
+Saturday
+
+Incident drill and review
+Deliverable: troubleshooting evidence
+- Introduce a wrong image tag in a test Deployment.
+- Diagnose the issue with kubectl describe pod, events and logs.
+- Restore the correct image and verify recovery.
+- Test a database connectivity failure if time permits.
+- Update your README with architecture, deployment commands and root-cause notes.
+End-of-day result: You can explain the entire path from Git commit to running API and diagnose at least one deployment failure.
