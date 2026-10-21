@@ -1,0 +1,29 @@
+name: Pipeline
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  code-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+    - name: Configure Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install Flask and dependencies
+      run: |
+        python -m install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Check app compilation
+      run: |
+        python -m py_compile app.py
